@@ -8,6 +8,7 @@ Puppet::Type.type(:net_share).provide(:net_share) do
 
   mk_resource_methods
 
+
   # Match resources to providers where the resource name matches the provider name
   def self.prefetch(resources)
     resources.each do |name, resource|
@@ -43,7 +44,6 @@ Puppet::Type.type(:net_share).provide(:net_share) do
   def flush
     if @property_hash[:ensure] != :absent
       if @initial_properties[:ensure] != :absent
-        info "deleting and recreating net_share '#{name}'"
         execute_delete
       end
 
@@ -73,7 +73,7 @@ Puppet::Type.type(:net_share).provide(:net_share) do
 
     properties[:ensure] = :present
 
-    output.each do |line|
+    output.each_line do |line|
       break if line.rstrip.length == 0
 
       last_name = name

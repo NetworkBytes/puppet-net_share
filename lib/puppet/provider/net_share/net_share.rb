@@ -10,7 +10,7 @@ Puppet::Type.type(:net_share).provide(:net_share) do
 
   # Match resources to providers where the resource name matches the provider name
   def self.prefetch(resources)
-    resources.each_line do |name, resource|
+    resources.each do |name, resource|
       provider = new(query(name))
 
       if provider

@@ -51,6 +51,7 @@ Puppet::Type.newtype(:net_share) do
     desc "An array of permissions. Example: ['computer\\user,full', 'computer\\user2,change', 'computer\\user3,read']"
 
     munge do |value|
+      value = [value] unless value.kind_of?(Array)
       value.collect do |item|
         user, access = item.split(',', 2)
         "#{user.strip},#{access.strip.downcase}"
